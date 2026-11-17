@@ -1,0 +1,21 @@
+{
+  "perfiles": [
+    {
+      "nombre": "Dra. Paola Julién",
+      "visible": true,
+      "foto": "/uploads/especialista-dsc08480.jpg",
+      "foto_alt": "Dra. Paola Julién",
+      "foto_posicion": "50% 35%",
+      "texto": "Médica dermatóloga y especialista en Medicina Interna. Mira la piel como parte de todo el cuerpo: diagnostica, indica y acompaña cada tratamiento.",
+      "trayectoria": [
+        { "anio": "2000", "titulo": "Médica", "detalle": "Universidad Nacional de La Plata" },
+        { "anio": "2005", "titulo": "Especialista en Medicina Interna", "detalle": "Universidad de Buenos Aires" },
+        { "anio": "2008", "titulo": "Especialista en Dermatología", "detalle": "" },
+        { "anio": "2010", "titulo": "Posgrado en Dermatología Estética y Quirúrgica", "detalle": "Sociedad Argentina de Dermatología" },
+        { "anio": "", "titulo": "Habilitación para láser, luz pulsada y radiofrecuencia", "detalle": "Ministerio de Salud de la Nación" }
+      ],
+      "frase": "La estética forma parte del cuidado cuando está bien indicada; nunca sustituye al diagnóstico.",
+      "matriculas": "M.N. 105560 · M.P. 452698"
+    }
+  ]
+}

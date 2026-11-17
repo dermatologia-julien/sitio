@@ -1,0 +1,34 @@
+{
+  "clinica": {
+    "titulo": "Dermatología clínica",
+    "menu": "Dermatología clínica",
+    "frase": "Diagnóstico, prevención y tratamiento de enfermedades de la piel, el pelo y las uñas.",
+    "foto": "/uploads/sector-clinica-dsc00871.jpg",
+    "foto_alt": "Control con dermatoscopio",
+    "foto_posicion": "50% 45%"
+  },
+  "estetica": {
+    "titulo": "Estética facial y rejuvenecimiento",
+    "menu": "Estética facial",
+    "frase": "Protocolos médicos personalizados, con resultados naturales que respetan tu identidad.",
+    "foto": "/uploads/sector-estetica-dsc00819.jpg",
+    "foto_alt": "Procedimiento facial inyectable",
+    "foto_posicion": "50% 40%"
+  },
+  "capilar": {
+    "titulo": "Salud capilar",
+    "menu": "Salud capilar",
+    "frase": "Diagnóstico de la caída del cabello con tricoscopía y tratamientos médicos personalizados.",
+    "foto": "/uploads/sector-capilar-dsc00845.jpg",
+    "foto_alt": "Tricoscopía del cuero cabelludo",
+    "foto_posicion": "40% 20%"
+  },
+  "corporal": {
+    "titulo": "Dermatofuncional y tratamientos corporales",
+    "menu": "Dermatofuncional",
+    "frase": "Tecnología y atención dermatofuncional, siempre dentro de un plan individual.",
+    "foto": "/uploads/sector-corporal-dsc00894.jpg",
+    "foto_alt": "Tratamiento de depilación láser",
+    "foto_posicion": "50% 70%"
+  }
+}

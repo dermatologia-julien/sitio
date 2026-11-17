@@ -1,0 +1,25 @@
+# Resultado del build (se genera solo)
+dist/
+dist-preview/
+.optimizadas/
+
+# Secretos y configuración local: nunca al repositorio
+php/api/config.php
+.env
+.env.*
+
+# Herramientas
+node_modules/
+__pycache__/
+*.pyc
+.netlify/
+
+# Sistema operativo y OneDrive
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+
+# Copias y paquetes
+*.zip
+*.bak

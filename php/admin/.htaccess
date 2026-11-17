@@ -1,0 +1,5 @@
+# El panel no se indexa en buscadores ni se guarda en caché.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+  Header set Cache-Control "no-cache"
+</IfModule>

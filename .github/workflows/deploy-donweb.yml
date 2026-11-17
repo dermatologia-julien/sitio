@@ -1,0 +1,101 @@
+# Publicación en DonWeb: arma el sitio y lo sube por FTP.
+#
+# Este flujo SOLO corre si el repositorio tiene la variable HOSTING = donweb
+# (Settings → Secrets and variables → Actions → pestaña "Variables").
+# Si el hosting elegido es Netlify, no hay que hacer nada: queda apagado.
+#
+# Secrets obligatorios (Settings → Secrets and variables → Actions → "Secrets"):
+#   FTP_SERVER     servidor FTP, por ejemplo ftp.dermatologiajulien.com.ar
+#   FTP_USERNAME   usuario FTP
+#   FTP_PASSWORD   contraseña FTP
+#
+# Secrets opcionales (si están, el flujo arma api/config.php y lo sube; si no, se sube a mano una vez):
+#   OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET   OAuth App de GitHub para el login del panel
+#   CONTACTO_DESTINATARIO                  casilla que recibe el formulario
+#   CONTACTO_REMITENTE                     casilla del dominio que figura como remitente
+#
+# Variables opcionales (pestaña "Variables"):
+#   FTP_SERVER_DIR   carpeta del sitio en el servidor, con barra final (por defecto public_html/)
+#   FTP_PROTOCOL     ftps (por defecto) o ftp, si el servidor no acepta conexión cifrada
+#   SITE_URL         dirección donde queda publicado, si no es la de content/datos.json (ej.: subdominio de pruebas)
+
+name: Publicar en DonWeb
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Una publicación por vez: si entran dos cambios seguidos, la segunda espera a la primera.
+concurrency:
+  group: deploy-donweb
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publicar:
+    name: Armar y subir el sitio
+    if: vars.HOSTING == 'donweb'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Bajar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Instalar Pillow (optimiza las fotos)
+        run: pip install -r requirements.txt
+
+      # Las fotos ya optimizadas se guardan entre publicaciones para no rehacerlas cada vez.
+      - name: Recuperar fotos optimizadas
+        uses: actions/cache@v4
+        with:
+          path: .optimizadas
+          key: fotos-${{ hashFiles('uploads/**', 'scripts/optimizar-fotos.py') }}
+          restore-keys: fotos-
+
+      - name: Armar el sitio
+        env:
+          FORM_MODE: php
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          python3 scripts/optimizar-fotos.py
+          node build.mjs
+
+      # Los secretos viajan de GitHub al servidor: nunca quedan escritos en el repositorio.
+      - name: Armar api/config.php con los secrets (opcional)
+        env:
+          OAUTH_CLIENT_ID: ${{ secrets.OAUTH_CLIENT_ID }}
+          OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
+          CONTACTO_DESTINATARIO: ${{ secrets.CONTACTO_DESTINATARIO }}
+          CONTACTO_REMITENTE: ${{ secrets.CONTACTO_REMITENTE }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          if [ -z "$OAUTH_CLIENT_ID" ] || [ -z "$OAUTH_CLIENT_SECRET" ]; then
+            echo "Sin secrets de OAuth: se usa el api/config.php que ya esté en el servidor."
+            exit 0
+          fi
+          node scripts/generar-config-php.mjs > dist/api/config.php
+          echo "api/config.php armado."
+
+      - name: Subir por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          local-dir: ./dist/
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}

@@ -1,0 +1,2 @@
+# Dependencias de Python del build (solo para optimizar las fotos).
+Pillow>=10,<13

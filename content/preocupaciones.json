@@ -1,0 +1,80 @@
+{
+  "items": [
+    {
+      "titulo": "Manchas o tono desigual",
+      "visible": true,
+      "opciones": [
+        { "tratamiento": "manchas-y-melasma", "etiqueta": "Melasma y manchas" },
+        { "tratamiento": "ipl-luz-pulsada-intensa", "etiqueta": "IPL" },
+        { "tratamiento": "laser-q-switched", "etiqueta": "Láser Q-switched" },
+        { "tratamiento": "peelings-quimicos", "etiqueta": "Peelings" }
+      ]
+    },
+    {
+      "titulo": "Acné, rojeces o rosácea",
+      "visible": true,
+      "opciones": [
+        { "tratamiento": "acne", "etiqueta": "Consulta dermatológica" },
+        { "tratamiento": "rosacea", "etiqueta": "Tratamientos médicos" },
+        { "tratamiento": "ipl-luz-pulsada-intensa", "etiqueta": "IPL en casos seleccionados" }
+      ]
+    },
+    {
+      "titulo": "Lunares, verrugas o lesiones",
+      "visible": true,
+      "opciones": [
+        { "tratamiento": "lunares-y-lesiones", "etiqueta": "Dermatoscopía" },
+        { "tratamiento": "verrugas-y-queratosis", "etiqueta": "Criocirugía" },
+        { "tratamiento": "biopsias-y-extirpacion-de-lesiones", "etiqueta": "Biopsias" },
+        { "tratamiento": "biopsias-y-extirpacion-de-lesiones", "etiqueta": "Extirpaciones" }
+      ]
+    },
+    {
+      "titulo": "Arrugas, flacidez o piel apagada",
+      "visible": true,
+      "opciones": [
+        { "tratamiento": "toxina-botulinica", "etiqueta": "Toxina botulínica" },
+        { "tratamiento": "prp-facial", "etiqueta": "PRP facial" },
+        { "tratamiento": "fraxe-face-radiofrecuencia-fraccionada", "etiqueta": "Fraxe Face" },
+        { "tratamiento": "mesolifting", "etiqueta": "Mesolifting" },
+        { "tratamiento": "radiofrecuencia-facial", "etiqueta": "Radiofrecuencia" }
+      ]
+    },
+    {
+      "titulo": "Caída o afinamiento del cabello",
+      "visible": true,
+      "opciones": [
+        { "tratamiento": "caida-del-cabello-y-alopecias", "etiqueta": "Evaluación capilar" },
+        { "tratamiento": "tricoscopia-y-estudios", "etiqueta": "Tricoscopía" },
+        { "tratamiento": "prp-capilar", "etiqueta": "PRP" },
+        { "tratamiento": "mesoterapia-capilar-e-infiltraciones", "etiqueta": "Mesoterapia" },
+        { "tratamiento": "mesoterapia-capilar-e-infiltraciones", "etiqueta": "Infiltraciones" }
+      ]
+    },
+    {
+      "titulo": "Vello no deseado",
+      "visible": true,
+      "opciones": [
+        { "tratamiento": "depilacion-laser-diodo", "etiqueta": "Depilación láser diodo" }
+      ]
+    },
+    {
+      "titulo": "Estrías, celulitis o flacidez corporal",
+      "visible": true,
+      "opciones": [
+        { "tratamiento": "flacidez-y-celulitis", "etiqueta": "Radiofrecuencia" },
+        { "tratamiento": "ultrasonido-y-radiofrecuencia-corporal", "etiqueta": "Ultrasonido" },
+        { "tratamiento": "estrias-y-cicatrices-corporales", "etiqueta": "Abordaje dermatofuncional" }
+      ]
+    },
+    {
+      "titulo": "Edemas o cicatrices posoperatorias",
+      "visible": true,
+      "opciones": [
+        { "tratamiento": "drenaje-linfatico", "etiqueta": "Drenaje linfático" },
+        { "tratamiento": "ultrasonido-y-radiofrecuencia-corporal", "etiqueta": "Ultrasonido" },
+        { "tratamiento": "recuperacion-posoperatoria", "etiqueta": "Tratamientos de recuperación" }
+      ]
+    }
+  ]
+}

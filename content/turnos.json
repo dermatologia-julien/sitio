@@ -1,0 +1,35 @@
+{
+  "titulo": "Turnos y coberturas",
+  "consulta": {
+    "etiqueta": "Consulta dermatológica especializada",
+    "titulo": "Evaluación, diagnóstico y un plan personalizado.",
+    "texto": "En la consulta revisamos tu piel o tu cabello, llegamos a un diagnóstico y diseñamos un plan a tu medida.",
+    "precio": "$80.000",
+    "boton": "Agendá tu consulta"
+  },
+  "pasos_titulo": "Pacientes particulares: cómo reservar",
+  "pasos_titulo_mobile": "Pacientes particulares",
+  "pasos": [
+    {
+      "titulo": "Reservá tu turno",
+      "texto": "Elegí día y horario en la agenda online del consultorio.",
+      "texto_mobile": "En la agenda online."
+    },
+    {
+      "titulo": "Aboná la seña o el total",
+      "titulo_mobile": "Aboná la seña o el total",
+      "texto": "Pacientes particulares: seña de $30.000 o el total de $80.000, dentro de las 24 hs. El link de pago llega con la confirmación del turno.",
+      "texto_mobile": "$30.000 o $80.000, dentro de las 24 hs."
+    },
+    {
+      "titulo": "El día de la consulta",
+      "titulo_mobile": "Saldo en el consultorio",
+      "texto": "Si pagaste la seña, el saldo de $50.000 se abona en el consultorio con QR. Sin efectivo.",
+      "texto_mobile": "$50.000 con QR. Sin efectivo."
+    }
+  ],
+  "coberturas_titulo": "Coberturas · sin seña",
+  "coberturas": ["OSDE", "Medicus", "OMINT"],
+  "coberturas_nota": "OSDE también desde la App de OSDE.",
+  "boton_whatsapp": "WhatsApp de secretaría"
+}

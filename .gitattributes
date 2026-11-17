@@ -1,0 +1,8 @@
+# Fin de línea parejo en Windows, Mac y Linux.
+* text=auto eol=lf
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.woff binary
+*.woff2 binary

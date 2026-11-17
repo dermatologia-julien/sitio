@@ -1,0 +1,14 @@
+{
+  "name": "sitio-dermatologia-julien",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fotos": "python3 scripts/optimizar-fotos.py",
+    "build": "node build.mjs",
+    "build:netlify": "FORM_MODE=netlify node build.mjs",
+    "build:donweb": "FORM_MODE=php node build.mjs",
+    "build:local": "FORM_MODE=none node build.mjs",
+    "preview": "FORM_MODE=none node build.mjs && node scripts/preview.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

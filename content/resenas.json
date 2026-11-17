@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "nombre": "Mónica C.",
+      "estrellas": 5,
+      "visible": true,
+      "texto": "Excelente profesional y excelente atención. Muy cálida, amable y clara para explicar todo. Me hizo sentir súper cómoda desde el primer momento. Se nota el compromiso y la dedicación con sus pacientes."
+    },
+    {
+      "nombre": "Raquel W.",
+      "estrellas": 5,
+      "visible": true,
+      "texto": "Súper cordial y atenta. Fui por una consulta y me mandó a hacer un estudio para ver el tema de forma más integral, lo cual me pareció buenísimo."
+    },
+    {
+      "nombre": "Mayra",
+      "estrellas": 5,
+      "visible": true,
+      "texto": "¡Mi dermatóloga desde los 15 años! Muy atenta y profesional, la recomiendo mucho."
+    },
+    {
+      "nombre": "Agustina R.",
+      "estrellas": 4,
+      "visible": false,
+      "texto": "PENDIENTE: copiar el texto de la reseña de Google."
+    },
+    {
+      "nombre": "Agus B.",
+      "estrellas": 5,
+      "visible": false,
+      "texto": "PENDIENTE: copiar el texto de la reseña de Google."
+    }
+  ]
+}

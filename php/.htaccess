@@ -1,0 +1,87 @@
+# Dermatología Julién · configuración de Apache para el hosting DonWeb.
+# El build (FORM_MODE=php) copia este archivo a la raíz del sitio.
+
+Options -Indexes
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+
+# ---------- Siempre por https ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # Sin "www" (una sola dirección para Google).
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # ---------- Archivos que nadie tiene que ver ----------
+  # Ocultos (.git, .env, .ftp-deploy-sync-state.json…), salvo .well-known que usa el certificado SSL.
+  RewriteRule (^|/)\.(?!well-known/) - [F,L]
+  # Configuración y partes internas de los scripts PHP.
+  RewriteRule ^api/(config(\.ejemplo)?\.php|_comun\.php|sitio\.json)$ - [F,L,NC]
+  # Copias, registros y otros restos.
+  RewriteRule \.(bak|old|orig|log|sql|ini|sh|md|zip)$ - [F,L,NC]
+</IfModule>
+
+# Segunda traba para la configuración, por si mod_rewrite no estuviera activo.
+<FilesMatch "^(config(\.ejemplo)?\.php|_comun\.php|sitio\.json|\.ftp-deploy-sync-state\.json)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# ---------- Seguridad básica ----------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
+</IfModule>
+
+# ---------- Tipos de archivo ----------
+<IfModule mod_mime.c>
+  AddType font/woff .woff
+  AddType font/woff2 .woff2
+  AddType image/webp .webp
+  AddType text/yaml .yml
+</IfModule>
+
+# ---------- Caché ----------
+# El CSS y el JS llevan ?v=… distinto en cada publicación, así que pueden guardarse un año.
+# Las fotos se guardan un día: si se reemplaza una foto con el mismo nombre, al día siguiente ya se ve la nueva.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/yaml "access plus 0 seconds"
+  ExpiresByType application/json "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 day"
+  ExpiresByType image/jpeg "access plus 1 day"
+  ExpiresByType image/png "access plus 1 day"
+  ExpiresByType image/svg+xml "access plus 1 day"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|yml)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# ---------- Compresión ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/yaml application/javascript text/javascript application/json image/svg+xml application/xml
+</IfModule>

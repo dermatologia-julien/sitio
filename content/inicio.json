@@ -1,0 +1,66 @@
+{
+  "portada": {
+    "titulo": "Dermatología con criterio médico",
+    "subtitulo": "Cuidamos tu piel y tu cabello con diagnóstico y tratamientos personalizados en Nordelta.",
+    "cta": "Agendá tu consulta",
+    "boton_preocupaciones": "¿Qué te preocupa?",
+    "boton_tratamientos": "Conocé nuestros tratamientos",
+    "boton_tratamientos_mobile": "Tratamientos",
+    "foto": "/uploads/hero-dsc08473.jpg",
+    "foto_alt": "Dra. Paola Julién en su consultorio",
+    "foto_posicion": "50% 40%"
+  },
+  "recorrido": [
+    "La especialista",
+    "Evaluación médica",
+    "Diagnóstico",
+    "Plan personalizado",
+    "Tratamiento"
+  ],
+  "preocupaciones": {
+    "etiqueta": "Ingresá por lo que te preocupa",
+    "titulo": "¿Qué te preocupa?",
+    "intro": "Elegí tu consulta más frecuente y te mostramos las opciones de atención. La indicación siempre depende de la evaluación médica.",
+    "intro_mobile": "Elegí tu consulta y te mostramos las opciones de atención."
+  },
+  "tratamientos": {
+    "etiqueta": "O ingresá por el nombre del procedimiento",
+    "titulo": "Conocé nuestros tratamientos",
+    "intro": "Cuatro sectores, un mismo criterio: primero evaluamos, después indicamos. No prometemos resultados ni cantidades fijas de sesiones; cada plan es individual.",
+    "intro_mobile": "Primero evaluamos, después indicamos.",
+    "cta_item": "Agendá tu evaluación",
+    "cta_sector": "Agendá tu consulta"
+  },
+  "franja_cta": {
+    "titulo": "Tu evaluación empieza con una consulta.",
+    "texto": "Elegí día y horario en la agenda online del consultorio.",
+    "boton": "Agendá tu consulta"
+  },
+  "resenas": {
+    "titulo": "Experiencias de nuestros pacientes",
+    "subtitulo": "Reseñas reales de Google",
+    "link": "Ver todas las reseñas en Google"
+  },
+  "tienda": {
+    "etiqueta": "Tienda Julién",
+    "titulo": "Productos seleccionados, pago de consultas y tratamientos indicados.",
+    "titulo_mobile": "Productos, pago de consultas y tratamientos",
+    "boton_productos": "Ver productos",
+    "boton_tratamientos": "Tratamientos indicados",
+    "link_mobile": "Ir a la tienda",
+    "foto": "/uploads/tienda-dsc08509.jpg",
+    "foto_alt": "Producto de la Tienda Julién"
+  },
+  "contacto": {
+    "titulo": "¿Tenés alguna consulta? Escribinos.",
+    "titulo_mobile": "¿Tenés alguna consulta?",
+    "texto": "Para consultas generales. Para sacar turno, usá la agenda online.",
+    "boton_whatsapp": "Escribinos por WhatsApp",
+    "boton_enviar": "Enviar consulta",
+    "mensaje_ok": "¡Gracias! Recibimos tu consulta y te respondemos a la brevedad."
+  },
+  "footer": {
+    "frase": "Ciencia dermatológica. Criterio médico. Belleza real.",
+    "legal": "La información de este sitio no reemplaza la consulta médica."
+  }
+}

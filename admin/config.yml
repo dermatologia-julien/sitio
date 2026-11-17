@@ -1,0 +1,377 @@
+# Panel de Dermatología Julién (Decap CMS)
+# Cada "Publicar" guarda un commit en el repositorio y el sitio se reconstruye solo (1-2 minutos).
+# El historial de versiones queda en GitHub.
+#
+# QUÉ CAMBIA SEGÚN EL HOSTING (solo el bloque "backend"; el resto del archivo es igual en los dos):
+#
+#   NETLIFY  → no se toca nada de este archivo.
+#              El login usa el servicio de Netlify (https://api.netlify.com). Se configura una sola vez
+#              en el panel de Netlify: Access & security → OAuth → GitHub (ver README).
+#
+#   DONWEB   → tampoco se toca a mano. El build con FORM_MODE=php activa solo las dos líneas
+#              comentadas de abajo (base_url y auth_endpoint) en la copia que se publica,
+#              para que el login pase por api/auth.php del mismo hosting.
+#              NO las descomentes acá: si quedaran activas en Netlify, el login dejaría de andar.
+
+backend:
+  name: github
+  repo: dermatologiajulien/sitio-dermatologia-julien   # cuenta-de-GitHub/repositorio (privado, a nombre de Dermatología Julién)
+  branch: main
+  # --- Solo DonWeb (las activa el build; no editar) ---
+  # base_url: https://dermatologiajulien.com.ar
+  # auth_endpoint: api/auth.php
+  commit_messages:
+    create: 'Panel: crea {{collection}} "{{slug}}"'
+    update: 'Panel: actualiza {{collection}} "{{slug}}"'
+    delete: 'Panel: elimina {{collection}} "{{slug}}"'
+    uploadMedia: 'Panel: sube foto "{{path}}"'
+    deleteMedia: 'Panel: borra foto "{{path}}"'
+
+locale: es
+site_url: https://dermatologiajulien.com.ar
+display_url: https://dermatologiajulien.com.ar
+logo_url: /img/logo-horizontal.png
+media_folder: uploads
+public_folder: /uploads
+publish_mode: simple
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+
+collections:
+
+  # ───────────── INICIO ─────────────
+  - name: inicio
+    label: Inicio
+    label_singular: Inicio
+    description: Textos de la portada y de cada sección del sitio.
+    editor: { preview: false }
+    files:
+      - name: inicio
+        label: Textos del sitio
+        file: content/inicio.json
+        fields:
+          - label: Portada
+            name: portada
+            widget: object
+            collapsed: false
+            fields:
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Subtítulo', name: subtitulo, widget: text }
+              - { label: 'Botón principal', name: cta, widget: string }
+              - { label: 'Botón "¿Qué te preocupa?"', name: boton_preocupaciones, widget: string }
+              - { label: 'Botón tratamientos', name: boton_tratamientos, widget: string }
+              - { label: 'Botón tratamientos (celular)', name: boton_tratamientos_mobile, widget: string }
+              - { label: 'Foto (dentro de la gota)', name: foto, widget: image, choose_url: false }
+              - { label: 'Descripción de la foto (accesibilidad)', name: foto_alt, widget: string }
+              - { label: 'Encuadre de la foto', name: foto_posicion, widget: string, default: "50% 40%", hint: 'Horizontal y vertical en %. "50% 0%" muestra la parte de arriba, "50% 100%" la de abajo.' }
+          - label: Recorrido (5 pasos)
+            name: recorrido
+            widget: list
+            min: 5
+            max: 5
+            field: { label: 'Paso', name: paso, widget: string }
+          - label: Sección "¿Qué te preocupa?"
+            name: preocupaciones
+            widget: object
+            fields:
+              - { label: 'Etiqueta', name: etiqueta, widget: string }
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Introducción', name: intro, widget: text }
+              - { label: 'Introducción (celular)', name: intro_mobile, widget: text }
+          - label: Sección "Conocé nuestros tratamientos"
+            name: tratamientos
+            widget: object
+            fields:
+              - { label: 'Etiqueta', name: etiqueta, widget: string }
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Introducción', name: intro, widget: text }
+              - { label: 'Introducción (celular)', name: intro_mobile, widget: text }
+              - { label: 'Botón de cada tratamiento', name: cta_item, widget: string }
+              - { label: 'Botón al final de cada sector', name: cta_sector, widget: string }
+          - label: Franja "Tu evaluación empieza con una consulta"
+            name: franja_cta
+            widget: object
+            fields:
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Texto', name: texto, widget: string }
+              - { label: 'Botón', name: boton, widget: string }
+          - label: Encabezado de reseñas
+            name: resenas
+            widget: object
+            fields:
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Subtítulo', name: subtitulo, widget: string }
+              - { label: 'Texto del link a Google', name: link, widget: string }
+          - label: Franja de la tienda
+            name: tienda
+            widget: object
+            fields:
+              - { label: 'Etiqueta', name: etiqueta, widget: string }
+              - { label: 'Título', name: titulo, widget: text }
+              - { label: 'Título (celular)', name: titulo_mobile, widget: string }
+              - { label: 'Botón productos', name: boton_productos, widget: string }
+              - { label: 'Botón tratamientos', name: boton_tratamientos, widget: string }
+              - { label: 'Link (celular)', name: link_mobile, widget: string }
+              - { label: 'Foto', name: foto, widget: image, choose_url: false }
+              - { label: 'Descripción de la foto', name: foto_alt, widget: string }
+          - label: Contacto
+            name: contacto
+            widget: object
+            fields:
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Título (celular)', name: titulo_mobile, widget: string }
+              - { label: 'Texto', name: texto, widget: text }
+              - { label: 'Botón WhatsApp', name: boton_whatsapp, widget: string }
+              - { label: 'Botón enviar', name: boton_enviar, widget: string }
+              - { label: 'Mensaje al enviar', name: mensaje_ok, widget: text }
+          - label: Pie de página
+            name: footer
+            widget: object
+            fields:
+              - { label: 'Frase', name: frase, widget: string }
+              - { label: 'Aviso legal', name: legal, widget: string }
+
+  # ───────────── ¿QUÉ TE PREOCUPA? ─────────────
+  - name: preocupaciones
+    label: ¿Qué te preocupa?
+    description: Cada preocupación muestra tratamientos que ya existen en "Tratamientos". Arrastrá para cambiar el orden. En celular se ven las primeras 6 y el botón "Ver todas".
+    editor: { preview: false }
+    files:
+      - name: preocupaciones
+        label: Preocupaciones
+        file: content/preocupaciones.json
+        fields:
+          - label: Preocupaciones
+            name: items
+            widget: list
+            label_singular: preocupación
+            summary: '{{fields.titulo}}'
+            fields:
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Visible', name: visible, widget: boolean, default: true }
+              - label: Opciones de atención
+                name: opciones
+                widget: list
+                label_singular: opción
+                summary: '{{fields.etiqueta}}'
+                fields:
+                  - label: Tratamiento
+                    name: tratamiento
+                    widget: relation
+                    collection: tratamientos
+                    value_field: '{{slug}}'
+                    search_fields: [nombre]
+                    display_fields: [nombre]
+                  - { label: 'Texto que se muestra (opcional)', name: etiqueta, widget: string, required: false, hint: 'Si lo dejás vacío se usa el nombre del tratamiento.' }
+
+  # ───────────── TRATAMIENTOS ─────────────
+  - name: tratamientos
+    label: Tratamientos
+    label_singular: tratamiento
+    description: Los 4 sectores son fijos. Podés agregar, editar, ocultar y ordenar procedimientos. El orden va de menor a mayor (10, 20, 30…).
+    folder: content/tratamientos
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: '{{nombre}}'
+    identifier_field: nombre
+    summary: '{{nombre}} · {{sector}} · orden {{orden}}{{visible | ternary("", " · OCULTO")}}'
+    sortable_fields: [orden, nombre, sector]
+    view_groups:
+      - { label: Sector, field: sector }
+    editor: { preview: false }
+    fields:
+      - { label: 'Nombre', name: nombre, widget: string }
+      - label: Sector
+        name: sector
+        widget: select
+        options:
+          - { label: "01 Dermatología clínica", value: clinica }
+          - { label: "02 Estética facial y rejuvenecimiento", value: estetica }
+          - { label: "03 Salud capilar", value: capilar }
+          - { label: "04 Dermatofuncional y corporales", value: corporal }
+      - { label: 'Orden', name: orden, widget: number, value_type: int, default: 100, hint: 'Menor número = más arriba dentro del sector.' }
+      - { label: 'Descripción breve', name: descripcion, widget: text }
+      - { label: 'Texto ampliado (opcional)', name: ampliado, widget: text, required: false, hint: 'Si tiene texto, aparece el botón "+" que lo despliega.' }
+      - { label: 'Visible en el sitio', name: visible, widget: boolean, default: true }
+
+  # ───────────── SECTORES (fijos) ─────────────
+  - name: sectores
+    label: Sectores
+    description: Título, frase y foto de los 4 sectores. No se pueden agregar ni quitar sectores.
+    editor: { preview: false }
+    files:
+      - name: sectores
+        label: Los 4 sectores
+        file: content/sectores.json
+        fields:
+          - label: "01 Dermatología clínica"
+            name: clinica
+            widget: object
+            fields:
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Nombre en el menú', name: menu, widget: string }
+              - { label: 'Frase', name: frase, widget: text }
+              - { label: 'Foto', name: foto, widget: image, choose_url: false }
+              - { label: 'Descripción de la foto', name: foto_alt, widget: string }
+              - { label: 'Encuadre de la foto', name: foto_posicion, widget: string, default: "50% 50%", hint: 'Horizontal y vertical en %.' }
+          - label: "02 Estética facial y rejuvenecimiento"
+            name: estetica
+            widget: object
+            fields:
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Nombre en el menú', name: menu, widget: string }
+              - { label: 'Frase', name: frase, widget: text }
+              - { label: 'Foto', name: foto, widget: image, choose_url: false }
+              - { label: 'Descripción de la foto', name: foto_alt, widget: string }
+              - { label: 'Encuadre de la foto', name: foto_posicion, widget: string, default: "50% 50%", hint: 'Horizontal y vertical en %.' }
+          - label: "03 Salud capilar"
+            name: capilar
+            widget: object
+            fields:
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Nombre en el menú', name: menu, widget: string }
+              - { label: 'Frase', name: frase, widget: text }
+              - { label: 'Foto', name: foto, widget: image, choose_url: false }
+              - { label: 'Descripción de la foto', name: foto_alt, widget: string }
+              - { label: 'Encuadre de la foto', name: foto_posicion, widget: string, default: "50% 50%", hint: 'Horizontal y vertical en %.' }
+          - label: "04 Dermatofuncional y corporales"
+            name: corporal
+            widget: object
+            fields:
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Nombre en el menú', name: menu, widget: string }
+              - { label: 'Frase', name: frase, widget: text }
+              - { label: 'Foto', name: foto, widget: image, choose_url: false }
+              - { label: 'Descripción de la foto', name: foto_alt, widget: string }
+              - { label: 'Encuadre de la foto', name: foto_posicion, widget: string, default: "50% 50%", hint: 'Horizontal y vertical en %.' }
+
+  # ───────────── ESPECIALISTA / EQUIPO ─────────────
+  - name: equipo
+    label: Especialista / Equipo
+    description: Con un perfil visible, la sección se llama "La especialista". Desde el segundo perfil pasa a "Nuestro equipo". Hasta 12 perfiles; el primero es el principal.
+    editor: { preview: false }
+    files:
+      - name: equipo
+        label: Perfiles
+        file: content/equipo.json
+        fields:
+          - label: Perfiles
+            name: perfiles
+            widget: list
+            max: 12
+            label_singular: perfil
+            summary: '{{fields.nombre}}'
+            fields:
+              - { label: 'Nombre', name: nombre, widget: string }
+              - { label: 'Visible', name: visible, widget: boolean, default: true }
+              - { label: 'Foto', name: foto, widget: image, choose_url: false }
+              - { label: 'Descripción de la foto', name: foto_alt, widget: string, required: false }
+              - { label: 'Encuadre de la foto', name: foto_posicion, widget: string, default: "50% 30%" }
+              - { label: 'Texto', name: texto, widget: text }
+              - label: Trayectoria
+                name: trayectoria
+                widget: list
+                required: false
+                summary: '{{fields.anio}} {{fields.titulo}}'
+                fields:
+                  - { label: 'Año', name: anio, widget: string, required: false }
+                  - { label: 'Título', name: titulo, widget: string }
+                  - { label: 'Institución', name: detalle, widget: string, required: false }
+              - { label: 'Frase destacada', name: frase, widget: text, required: false }
+              - { label: 'Matrículas', name: matriculas, widget: string, required: false }
+
+  # ───────────── RESEÑAS ─────────────
+  - name: resenas
+    label: Reseñas
+    description: Reseñas reales de Google. Copiá el texto tal cual lo escribió el paciente.
+    editor: { preview: false }
+    files:
+      - name: resenas
+        label: Reseñas
+        file: content/resenas.json
+        fields:
+          - label: Reseñas
+            name: items
+            widget: list
+            label_singular: reseña
+            summary: '{{fields.nombre}} · {{fields.estrellas}}★'
+            fields:
+              - { label: 'Nombre', name: nombre, widget: string }
+              - { label: 'Estrellas', name: estrellas, widget: number, value_type: int, min: 1, max: 5, default: 5 }
+              - { label: 'Texto', name: texto, widget: text }
+              - { label: 'Visible', name: visible, widget: boolean, default: true }
+
+  # ───────────── TURNOS Y COBERTURAS ─────────────
+  - name: turnos
+    label: Turnos y coberturas
+    editor: { preview: false }
+    files:
+      - name: turnos
+        label: Turnos y coberturas
+        file: content/turnos.json
+        fields:
+          - { label: 'Título', name: titulo, widget: string }
+          - label: Tarjeta de la consulta
+            name: consulta
+            widget: object
+            fields:
+              - { label: 'Etiqueta', name: etiqueta, widget: string }
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Texto', name: texto, widget: text }
+              - { label: 'Precio', name: precio, widget: string, hint: 'Ej.: $80.000' }
+              - { label: 'Botón', name: boton, widget: string }
+          - { label: 'Título de los pasos', name: pasos_titulo, widget: string }
+          - { label: 'Título de los pasos (celular)', name: pasos_titulo_mobile, widget: string }
+          - label: Pasos
+            name: pasos
+            widget: list
+            summary: '{{fields.titulo}}'
+            fields:
+              - { label: 'Título', name: titulo, widget: string }
+              - { label: 'Título (celular)', name: titulo_mobile, widget: string, required: false }
+              - { label: 'Texto', name: texto, widget: text }
+              - { label: 'Texto (celular)', name: texto_mobile, widget: string, required: false }
+          - { label: 'Título de coberturas', name: coberturas_titulo, widget: string }
+          - { label: 'Coberturas', name: coberturas, widget: list, field: { label: 'Cobertura', name: cobertura, widget: string } }
+          - { label: 'Nota de coberturas', name: coberturas_nota, widget: string }
+          - { label: 'Botón WhatsApp', name: boton_whatsapp, widget: string }
+
+  # ───────────── CONTACTO Y DATOS ─────────────
+  - name: datos
+    label: Contacto y datos
+    description: Un solo lugar para teléfonos, links, dirección y horarios. Se actualiza en todo el sitio.
+    editor: { preview: false }
+    files:
+      - name: datos
+        label: Contacto y datos
+        file: content/datos.json
+        fields:
+          - { label: 'Nombre del sitio', name: nombre_sitio, widget: string }
+          - { label: 'Profesional', name: profesional, widget: string }
+          - { label: 'Matrícula nacional', name: matricula_nacional, widget: string }
+          - { label: 'Matrícula provincial', name: matricula_provincial, widget: string }
+          - { label: 'Link de la agenda online (botones "Agendá")', name: agenda_url, widget: string }
+          - { label: 'Link del turnero (pacientes registrados)', name: turnero_registrados_url, widget: string }
+          - { label: 'Link de la agenda de OSDE', name: osde_url, widget: string, required: false }
+          - { label: 'WhatsApp de turnos', name: whatsapp_turnos, widget: string, hint: 'Formato: 11 6220-1056' }
+          - { label: 'Mensaje inicial de WhatsApp', name: whatsapp_turnos_mensaje, widget: string, required: false }
+          - { label: 'WhatsApp de la tienda', name: whatsapp_tienda, widget: string }
+          - { label: 'Email', name: email, widget: string }
+          - { label: 'Instagram (sin @)', name: instagram, widget: string }
+          - { label: 'Link de la tienda', name: tienda_url, widget: string }
+          - { label: 'Link "Ver productos"', name: tienda_productos_url, widget: string }
+          - { label: 'Link "Tratamientos indicados"', name: tienda_tratamientos_url, widget: string }
+          - { label: 'Dirección (línea 1)', name: direccion_linea1, widget: string }
+          - { label: 'Dirección (línea 2)', name: direccion_linea2, widget: string }
+          - { label: 'Búsqueda para el mapa', name: mapa_busqueda, widget: string }
+          - { label: 'Días de atención', name: dias_atencion, widget: string }
+          - { label: 'Horarios', name: horarios, widget: string }
+          - { label: 'Link a las reseñas de Google', name: google_resenas_url, widget: string }
+          - { label: 'Dirección del sitio', name: url_sitio, widget: string }
+          - { label: 'Título para Google', name: seo_titulo, widget: string }
+          - { label: 'Descripción para Google', name: seo_descripcion, widget: text }
+          - { label: 'Imagen al compartir', name: seo_imagen, widget: image, choose_url: false }

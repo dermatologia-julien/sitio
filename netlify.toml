@@ -1,0 +1,63 @@
+# Dermatología Julién · configuración para hosting en Netlify.
+# Netlify lee este archivo solo: no hace falta cargar estos datos a mano en su panel.
+# (Si el hosting elegido es DonWeb, este archivo no molesta: simplemente no se usa.)
+
+[build]
+  # Optimiza las fotos (Pillow se instala solo desde requirements.txt) y genera el sitio con Netlify Forms.
+  command = "python3 scripts/optimizar-fotos.py && FORM_MODE=netlify node build.mjs"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# ---------- Redirecciones ----------
+# El panel vive en /admin/ (con barra final).
+[[redirects]]
+  from = "/admin"
+  to = "/admin/"
+  status = 301
+  force = true
+
+# ---------- Seguridad básica (todo el sitio) ----------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# El panel no se indexa ni se guarda en caché.
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache"
+
+# ---------- Caché ----------
+# El CSS y el JS llevan ?v=… distinto en cada publicación, así que pueden guardarse un año.
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Las fotos se guardan un día: si se reemplaza una foto con el mismo nombre, al día siguiente ya se ve la nueva.
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/uploads/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
