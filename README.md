@@ -59,7 +59,7 @@ Variable opcional, solo con `FORM_MODE=php`: `SITE_URL=https://qa.dermatologiaju
 
 Netlify lee `netlify.toml`, así que casi no hay nada que cargar a mano.
 
-1. **Subir el repo a GitHub** (ver sección 6). Tiene que estar en `dermatologiajulien/sitio-dermatologia-julien`.
+1. **Subir el repo a GitHub** (ver sección 6). Tiene que estar en `dermatologia-julien/sitio`.
 2. **Crear el sitio.** En Netlify: *Add new project → Import an existing project → GitHub* y elegir el repositorio. El comando de build y la carpeta `dist` aparecen ya completos. *Deploy*.
 3. **Activar el formulario.** *Forms → Enable form detection* y volver a publicar (*Deploys → Trigger deploy*). Después del deploy tiene que aparecer el formulario `contacto`.
 4. **Mail que recibe el formulario.** *Forms → Form notifications → Add notification → Email notification*: poner la casilla del consultorio y elegir el formulario `contacto`.
@@ -171,7 +171,7 @@ La carpeta ya es un repositorio git con un primer commit en `main`, sin remoto.
 2. Desde esta carpeta:
 
 ```bash
-git remote add origin https://github.com/dermatologiajulien/sitio-dermatologia-julien.git
+git remote add origin https://github.com/dermatologia-julien/sitio.git
 git push -u origin main
 ```
 

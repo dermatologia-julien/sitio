@@ -15,7 +15,7 @@
 
 backend:
   name: github
-  repo: dermatologiajulien/sitio-dermatologia-julien   # cuenta-de-GitHub/repositorio (privado, a nombre de Dermatología Julién)
+  repo: dermatologia-julien/sitio   # cuenta-de-GitHub/repositorio (privado, a nombre de Dermatología Julién)
   branch: main
   # --- Solo DonWeb (las activa el build; no editar) ---
   # base_url: https://dermatologiajulien.com.ar
