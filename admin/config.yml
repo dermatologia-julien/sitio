@@ -2,24 +2,19 @@
 # Cada "Publicar" guarda un commit en el repositorio y el sitio se reconstruye solo (1-2 minutos).
 # El historial de versiones queda en GitHub.
 #
-# QUÉ CAMBIA SEGÚN EL HOSTING (solo el bloque "backend"; el resto del archivo es igual en los dos):
-#
-#   NETLIFY  → no se toca nada de este archivo.
-#              El login usa el servicio de Netlify (https://api.netlify.com). Se configura una sola vez
-#              en el panel de Netlify: Access & security → OAuth → GitHub (ver README).
-#
-#   DONWEB   → tampoco se toca a mano. El build con FORM_MODE=php activa solo las dos líneas
-#              comentadas de abajo (base_url y auth_endpoint) en la copia que se publica,
-#              para que el login pase por api/auth.php del mismo hosting.
-#              NO las descomentes acá: si quedaran activas en Netlify, el login dejaría de andar.
+# CÓMO ENTRA EL PANEL (no se edita a mano):
+#   El build activa base_url y auth_endpoint en la copia que se publica, según el hosting:
+#   NETLIFY (FORM_MODE=netlify) → login por la función .netlify/functions/auth del mismo sitio.
+#   DONWEB  (FORM_MODE=php)     → login por api/auth.php del mismo hosting.
+#   NO descomentes las líneas de abajo acá: las completa el build con la dirección correcta.
 
 backend:
   name: github
   repo: dermatologia-julien/sitio   # cuenta-de-GitHub/repositorio (privado, a nombre de Dermatología Julién)
   branch: main
-  # --- Solo DonWeb (las activa el build; no editar) ---
+  # --- Las activa el build según el hosting (no editar) ---
   # base_url: https://dermatologiajulien.com.ar
-  # auth_endpoint: api/auth.php
+  # auth_endpoint: (lo completa el build)
   commit_messages:
     create: 'Panel: crea {{collection}} "{{slug}}"'
     update: 'Panel: actualiza {{collection}} "{{slug}}"'

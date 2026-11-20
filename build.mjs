@@ -556,4 +556,19 @@ if (FORM_MODE === 'php') {
   writeFileSync(cfgPath, cfg);
 }
 
+if (FORM_MODE === 'netlify') {
+  // Netlify: el panel entra por la función netlify/functions/auth.mjs del mismo sitio.
+  // Netlify define URL (dirección principal del sitio) durante el build; afuera de Netlify se usa la de datos.json.
+  const siteUrl = (process.env.URL || datos.url_sitio).replace(/\/+$/, '');
+  const cfgPath = join(DIST, 'admin/config.yml');
+  let cfg = readFileSync(cfgPath, 'utf8');
+  const antes = cfg;
+  cfg = cfg.replace(/^(\s*)# base_url:.*$/m, `$1base_url: ${siteUrl}`).replace(/^(\s*)# auth_endpoint:.*$/m, '$1auth_endpoint: .netlify/functions/auth');
+  if (cfg === antes || !/^\s*base_url:/m.test(cfg) || !/^\s*auth_endpoint:/m.test(cfg)) {
+    console.error('No se pudieron activar base_url y auth_endpoint en admin/config.yml (faltan las líneas comentadas).');
+    process.exit(1);
+  }
+  writeFileSync(cfgPath, cfg);
+}
+
 console.log(`OK · ${tratamientos.length} tratamientos · ${equipoVisible().length} perfil(es) · form=${FORM_MODE} · dist/`);

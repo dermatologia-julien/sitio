@@ -7,6 +7,10 @@
   command = "python3 scripts/optimizar-fotos.py && FORM_MODE=netlify node build.mjs"
   publish = "dist"
 
+# Función del login del panel (netlify/functions/auth.mjs).
+[functions]
+  directory = "netlify/functions"
+
 [build.environment]
   NODE_VERSION = "22"
 
@@ -28,6 +32,11 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
 # El panel no se indexa ni se guarda en caché.
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 [[headers]]
   for = "/admin/*"
   [headers.values]

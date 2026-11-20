@@ -55,22 +55,32 @@ Si falta Pillow, el build no se corta: avisa y publica las fotos originales (má
 
 Variable opcional, solo con `FORM_MODE=php`: `SITE_URL=https://qa.dermatologiajulien.com.ar` indica la dirección donde queda publicado ese build (sirve para el login del panel en un subdominio de pruebas).
 
-## 3. Publicar en Netlify (opción recomendada)
+## 3. Publicar en Netlify (hosting elegido)
 
-Netlify lee `netlify.toml`, así que casi no hay nada que cargar a mano.
+Netlify lee `netlify.toml`, así que casi no hay nada que cargar a mano. La cuenta de Netlify es de Paola (plan Personal, de un solo usuario), así que todo se configura desde la compu de Freedway con **Netlify CLI** y un *personal access token* que generó ella.
 
-1. **Subir el repo a GitHub** (ver sección 6). Tiene que estar en `dermatologia-julien/sitio`.
-2. **Crear el sitio.** En Netlify: *Add new project → Import an existing project → GitHub* y elegir el repositorio. El comando de build y la carpeta `dist` aparecen ya completos. *Deploy*.
-3. **Activar el formulario.** *Forms → Enable form detection* y volver a publicar (*Deploys → Trigger deploy*). Después del deploy tiene que aparecer el formulario `contacto`.
-4. **Mail que recibe el formulario.** *Forms → Form notifications → Add notification → Email notification*: poner la casilla del consultorio y elegir el formulario `contacto`.
-5. **Login del panel.**
-   1. En GitHub, con la cuenta **dermatologiajulien**: *Settings → Developer settings → OAuth Apps → New OAuth App*.
-      - *Homepage URL:* `https://dermatologiajulien.com.ar`
-      - *Authorization callback URL:* `https://api.netlify.com/auth/done`
+1. **Subir el repo a GitHub** (ver sección 6). Está en `dermatologia-julien/sitio`.
+2. **Instalar Netlify CLI** (una vez): `npm install -g netlify-cli`.
+3. **Crear el sitio y conectarlo al repo.** En PowerShell, dentro de la carpeta del repo:
+   ```powershell
+   $env:NETLIFY_AUTH_TOKEN = "<token de Paola>"
+   netlify init
+   ```
+   Elegir *Create & configure a new project*, el equipo de Paola y el nombre `dermatologia-julien`. Cuando pida autorizar GitHub, entrar con la cuenta **freedway** (dueña de la organización): la CLI agrega sola la deploy key y el webhook al repo. El comando de build y la carpeta `dist` salen de `netlify.toml`.
+4. **Login del panel** (función `netlify/functions/auth.mjs`):
+   1. En la organización de GitHub: *Settings → Developer settings → OAuth Apps → New OAuth App*.
+      - *Homepage URL:* la dirección del sitio.
+      - *Authorization callback URL:* `https://<dirección del sitio>/.netlify/functions/auth` (cuando se conecte el dominio, cambiarla a `https://dermatologiajulien.com.ar/.netlify/functions/auth`).
    2. Copiar el **Client ID** y generar un **Client secret**.
-   3. En Netlify: *Project configuration → Access & security → OAuth → Install provider → GitHub* y pegar los dos valores.
-   4. Entrar a `https://dermatologiajulien.com.ar/admin/` y probar *Login with GitHub*.
-6. **Dominio.** *Domain management → Add a domain* y seguir las indicaciones para el DNS en NIC Argentina. El certificado SSL se emite solo.
+   3. Cargarlos en Netlify (no van al repo):
+      ```powershell
+      netlify env:set GITHUB_OAUTH_CLIENT_ID "<client id>"
+      netlify env:set GITHUB_OAUTH_CLIENT_SECRET "<client secret>"
+      ```
+   4. Volver a publicar (`netlify deploy --build --prod`, o un push) y probar *Login with GitHub* en `/admin/`.
+5. **Formulario.** Activar la detección de formularios y la notificación por mail a la casilla del consultorio (formulario `contacto`).
+6. **Dominio.** Agregar `dermatologiajulien.com.ar` al sitio y apuntar el DNS en NIC Argentina. El certificado SSL se emite solo.
+7. **Al terminar:** que Paola anule el token desde *User settings → Applications → Personal access tokens*.
 
 Cada cambio que se publica desde el panel es un commit en `main`, y Netlify vuelve a armar el sitio (1 a 2 minutos).
 
@@ -156,7 +166,7 @@ El login del panel necesita su propia OAuth App con la *callback URL* del subdom
 |---|---|---|
 | **Mail que recibe el formulario** | Panel de Netlify: *Forms → Form notifications*. | Secret `CONTACTO_DESTINATARIO` (o `contacto_destinatario` en `api/config.php`). Si falta, se usa el email público de `content/datos.json`. |
 | **Remitente del mail** | No aplica. | Secret `CONTACTO_REMITENTE` (o `contacto_remitente`). |
-| **OAuth del panel** | Panel de Netlify: *Access & security → OAuth*. Callback `https://api.netlify.com/auth/done`. | Secrets `OAUTH_CLIENT_ID` y `OAUTH_CLIENT_SECRET`. Callback `https://<dominio>/api/auth.php`. |
+| **OAuth del panel** | Variables `GITHUB_OAUTH_CLIENT_ID` y `GITHUB_OAUTH_CLIENT_SECRET` en Netlify (`netlify env:set`). Callback `https://<dominio>/.netlify/functions/auth`. | Secrets `OAUTH_CLIENT_ID` y `OAUTH_CLIENT_SECRET`. Callback `https://<dominio>/api/auth.php`. |
 | **Repositorio del panel** | `admin/config.yml` → `backend.repo`. | Igual. |
 | **Teléfonos, links, dirección, SEO** | Panel → *Contacto y datos* (`content/datos.json`). | Igual. |
 | **Cabeceras, caché y redirecciones** | `netlify.toml`. | `php/.htaccess`. |
@@ -194,7 +204,7 @@ Falta medir con Lighthouse en el hosting real.
 
 ## 8. Pendientes
 
-- [ ] **Hosting:** elección de Paola (Netlify Personal o DonWeb Emprendedor).
+- [x] **Hosting:** Netlify Personal (elegido por Paola el 13/11).
 - [ ] Crear el repositorio en GitHub y subir el código (sección 6).
 - [ ] Configurar el hosting elegido (sección 3 o 4): deploy, formulario, OAuth y dominio.
 - [ ] Probar el panel con el repositorio real: entrar, editar, subir una foto y publicar.
