@@ -23,3 +23,7 @@ desktop.ini
 # Copias y paquetes
 *.zip
 *.bak
+
+# Archivos locales de la herramienta de Netlify (no van al repo)
+.netlify/
+.agents/
