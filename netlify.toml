@@ -15,12 +15,8 @@
   NODE_VERSION = "22"
 
 # ---------- Redirecciones ----------
-# El panel vive en /admin/ (con barra final).
-[[redirects]]
-  from = "/admin"
-  to = "/admin/"
-  status = 301
-  force = true
+# /admin → /admin/ lo resuelve Netlify solo. No agregar una regla propia: Netlify ignora la
+# barra final al comparar y la regla redirigía /admin/ a sí misma (bucle).
 
 # ---------- Seguridad básica (todo el sitio) ----------
 [[headers]]
