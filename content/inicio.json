@@ -1,14 +1,14 @@
 {
   "portada": {
-    "titulo": "Dermatología con criterio médico",
-    "subtitulo": "Cuidamos tu piel y tu cabello con diagnóstico y tratamientos personalizados en Nordelta.",
-    "cta": "Agendá tu consulta",
-    "boton_preocupaciones": "¿Qué te preocupa?",
-    "boton_tratamientos": "Conocé nuestros tratamientos",
-    "boton_tratamientos_mobile": "Tratamientos",
     "foto": "/uploads/hero-dsc08473.jpg",
-    "foto_alt": "Dra. Paola Julién en su consultorio",
-    "foto_posicion": "50% 40%"
+    "boton_tratamientos_mobile": "Tratamientos",
+    "foto_alt": "Dra. Paola Julién en su consultorio (prueba)",
+    "cta": "Agendá tu consulta",
+    "foto_posicion": "50% 40%",
+    "subtitulo": "Cuidamos tu piel y tu cabello con diagnóstico y tratamientos personalizados en Nordelta.",
+    "titulo": "Dermatología con criterio médico",
+    "boton_preocupaciones": "¿Qué te preocupa?",
+    "boton_tratamientos": "Conocé nuestros tratamientos"
   },
   "recorrido": [
     "La especialista",
