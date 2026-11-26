@@ -225,6 +225,9 @@ main:focus { outline: none; }
 .consulta-card p { font-size: 15.5px; color: #e3eeec; margin-top: 19px; line-height: 1.6; }
 .consulta-card .precio { color: #fff; font-size: 15.5px; margin-top: 23px; }
 .consulta-card .btn { margin-top: 19px; }
+.consulta-card .agenda-link { margin-top: 16px; font-size: 14.5px; }
+.consulta-card .agenda-link a { color: #fff; }
+.sin-pasos .consulta-card { min-height: 0; }
 .turnos-info .eyebrow { margin-top: -4px; }
 .pasos li { background: var(--marfil); padding: 27px 25px 24px; margin-bottom: 12px; }
 .pasos .num { display: block; line-height: 1.2; margin-bottom: 6px; }

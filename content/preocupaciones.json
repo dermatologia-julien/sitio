@@ -68,7 +68,7 @@
       ]
     },
     {
-      "titulo": "Edemas o cicatrices posoperatorias",
+      "titulo": "Edemas o cicatrices postoperatorias",
       "visible": true,
       "opciones": [
         { "tratamiento": "drenaje-linfatico", "etiqueta": "Drenaje linfático" },

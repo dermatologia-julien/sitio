@@ -319,11 +319,14 @@ collections:
               - { label: 'Texto', name: texto, widget: text }
               - { label: 'Precio', name: precio, widget: string, hint: 'Ej.: $80.000' }
               - { label: 'Botón', name: boton, widget: string }
-          - { label: 'Título de los pasos', name: pasos_titulo, widget: string }
-          - { label: 'Título de los pasos (celular)', name: pasos_titulo_mobile, widget: string }
+              - { label: 'Link a la agenda online (texto)', name: agenda_texto, widget: string, required: false, hint: 'Aparece debajo del botón. Vacío = no se muestra.' }
+          - { label: 'Título de los pasos', name: pasos_titulo, widget: string, required: false }
+          - { label: 'Título de los pasos (celular)', name: pasos_titulo_mobile, widget: string, required: false }
           - label: Pasos
             name: pasos
             widget: list
+            required: false
+            hint: 'Sin pasos, este bloque no se muestra.'
             summary: '{{fields.titulo}}'
             fields:
               - { label: 'Título', name: titulo, widget: string }

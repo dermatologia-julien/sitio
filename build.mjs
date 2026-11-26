@@ -311,7 +311,8 @@ function resenasSec() {
 
 function turnosSec() {
   const t = turnos;
-  const pasos = t.pasos.map((p, i) => `
+  const hayPasos = Array.isArray(t.pasos) && t.pasos.length > 0;
+  const pasos = (t.pasos || []).map((p, i) => `
       <li><span class="num">${i + 1}</span>
         <h4><span class="d-only">${esc(p.titulo)}</span><span class="m-only"><span class="paso-n">${i + 1}.</span> ${esc(p.titulo_mobile || p.titulo)}</span></h4>
         <p><span class="d-only">${esc(p.texto)}</span><span class="m-only">${esc(p.texto_mobile || p.texto)}</span></p></li>`).join('');
@@ -323,17 +324,18 @@ function turnosSec() {
 <section class="sec sec-white" id="turnos">
   <div class="wrap">
     <h2 class="turnos-title">${esc(t.titulo)}</h2>
-    <div class="turnos-grid">
+    <div class="turnos-grid${hayPasos ? '' : ' sin-pasos'}">
       <div class="consulta-card">
         <p class="eyebrow d-only">${esc(t.consulta.etiqueta)}</p>
         <h3>${esc(t.consulta.titulo)}</h3>
         <p class="d-only">${esc(t.consulta.texto)}</p>
         <p class="precio">Consulta particular: <strong>${esc(t.consulta.precio)}</strong></p>
         ${btn(AGENDA, t.consulta.boton, { variant: 'light' })}
+        ${t.consulta.agenda_texto ? `<p class="agenda-link"><a class="link-under" href="${esc(AGENDA)}" ${ext}>${esc(t.consulta.agenda_texto)}</a></p>` : ''}
       </div>
       <div class="turnos-info">
-        <h3 class="eyebrow"><span class="d-only">${esc(t.pasos_titulo)}</span><span class="m-only">${esc(t.pasos_titulo_mobile || t.pasos_titulo)}</span></h3>
-        <ol class="pasos">${pasos}</ol>
+        ${hayPasos ? `<h3 class="eyebrow"><span class="d-only">${esc(t.pasos_titulo)}</span><span class="m-only">${esc(t.pasos_titulo_mobile || t.pasos_titulo)}</span></h3>
+        <ol class="pasos">${pasos}</ol>` : ''}
         <h3 class="eyebrow">${esc(t.coberturas_titulo)}</h3>
         <ul class="coberturas">${cob}</ul>
         <p class="nota">${esc(t.coberturas_nota)}${osde} <span class="d-only">Consultas por WhatsApp a secretaría: ${esc(datos.whatsapp_turnos)}.</span></p>
